@@ -1,18 +1,11 @@
 // Importing express module
 const express = require('express');
-const axios = require("axios");
 const app = express();
 let PORT = process.env.port || 3000
 
 //Dynamo Setup
 const { DynamoDBClient, ListTablesCommand, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-const client = new DynamoDBClient(
-	{ region: "us-east-2",
-	credentials:{
-		accessKeyId: "AKIAZQ3DRCFGKNMRUFXN",
-		secretAccessKey: "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"
-	}
-});
+
 
 
 app.use(express.json());
@@ -28,18 +21,25 @@ app.listen(PORT,
 });
 
 app.post('/', async function(req, res) {
-		const {username, title, review} = req.body;
+		const {name, accessKey, secretKey, title, review} = req.body;
 		console.log(req.body);
-		putNewItemDB(username, title, review);
-		res.send({username});
+		putNewItemDB(name, accessKey, secretKey, title, review);
+		res.send({name, accessKey, secretKey, title, review});
 });
 
-async function putNewItemDB(user, title, review){
+async function putNewItemDB(name, accessKey, secretKey, title, review){
+	const client = new DynamoDBClient(
+		{ region: "us-east-2",
+		credentials:{
+			accessKeyId: accessKey,//"AKIAZQ3DRCFGKNMRUFXN",
+			secretAccessKey: secretKey,//"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"
+		}
+	});
 	const input = {
 		TableName: "Movies",
 		Item: {
 			"User": {
-				"S": user
+				"S": name
 				},
 			"Title": {
 				"S": title

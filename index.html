@@ -10,7 +10,15 @@
 	<form>
 		<div>
 			<label>First Name</label>
-			<input type="text" id="user" />
+			<input type="text" id="name" />
+		</div>
+		<div>
+			<label>Access Key</label>
+			<input type="text" id="accessKey" />
+		</div>
+		<div>
+			<label>Secret Password</label>
+			<input type="text" id="secretKey" />
 		</div>
 		<div>
 			<label>Movie Title</label>
@@ -34,23 +42,22 @@
 		document.querySelector('button')
 			.addEventListener('click', (e) => {
 				e.preventDefault();
-				const username = document
-					.querySelector('#user').value;
-
-				const title = document
-					.querySelector('#title').value;
-
-				const review = document
-					.querySelector('#review').value;
+				const name = document.querySelector('#name').value;
+				const accessKey = document.querySelector('#accessKey').value;
+				const secretKey = document.querySelector('#secretKey').value;
+				const title = document.querySelector('#title').value;
+				const review = document.querySelector('#review').value;
 					
 				fetch('/', {
 					method: 'POST',
 					headers: {
-						Authorization: 'Bearer abcdxyz',
+						Authorization: 'Bearer',
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						username,
+						name,
+						accessKey,
+						secretKey,
 						title,
 						review,
 					}),
