@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.588.0",
+    "aws-sdk": "^2.1632.0",
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "connect": "^3.7.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "serve-static": "^1.15.0",
+    "uuid": "^9.0.1"
+  }
+}
