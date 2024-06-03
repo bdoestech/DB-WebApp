@@ -13,18 +13,12 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 app.get('/',(req, res) => {
 		res.sendFile(__dirname + '/index.html');
 	});
-app.listen(PORT,
-	() => {
-		console.log(
-			'Our express server is up on port 3000'
-		);
-});
-
+app.listen(PORT,() => {console.log('Our express server is up on port 3000');});
 
 app.post('/', async function(req, res) {
 		const {name, accessKey, secretKey, title, review} = req.body;
 		console.log(req.body);
-		putNewItemDB(name, accessKey, secretKey, title, review);
+		//putNewItemDB(name, accessKey, secretKey, title, review);
 		res.send({name, accessKey, secretKey, title, review});
 });
 
