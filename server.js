@@ -26,8 +26,8 @@ async function putNewItemDB(name, accessKey, secretKey, title, review){
 	const client = new DynamoDBClient(
 		{ region: "us-east-2",
 		credentials:{
-			accessKeyId: accessKey,//"AKIAZQ3DRCFGKNMRUFXN",
-			secretAccessKey: secretKey,//"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"
+			accessKeyId: accessKey,
+			secretAccessKey: secretKey,
 		}
 	});
 	const input = {
