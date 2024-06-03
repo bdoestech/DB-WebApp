@@ -2,10 +2,9 @@
 const express = require('express');
 const app = express();
 let PORT = process.env.port || 3000
-
 //Dynamo Setup
 const { DynamoDBClient, ListTablesCommand, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-
+  
 
 
 app.use(express.json());
