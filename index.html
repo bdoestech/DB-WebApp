@@ -3,29 +3,54 @@
   
 <head>
 	<meta charset="UTF-8" />
-	<title>Node.js</title>
+	<title>Horror Form</title>
 </head>
 
 <style>
 	body{
 		background-color: rgb(10, 10, 10);
 		color: whitesmoke;
+		margin: 1rem;
+		font-size: 1.5rem;
+	}
+	#review {
+		width: 35%;
+		height: 100px;
+	}
+	div {
+		margin: 1rem;
 	}
 </style>
 
 <body>
-    <form action="/Form-Submitted" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br>
+<h1>Movie Review Form</h1>
 
-		<label for="movie">Movie:</label>
-		<input type="text" id="movie" name="movie"> <br>
+    <form action="/" method="post">
+		<div>
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required><br>
+		</div>
 
-		<label for="id">Access Key:</label>
-		<input type="text" id="id" name="id"><br>
+		<div>
+			<label for="id">Access Key:</label>
+			<input type="text" id="id" name="id" required><br>
+		</div>
 
-		<label for="key">Secret Key:</label>
-		<input type="text" id="key" name="key"><br>
+		<div>
+			<label for="key">Secret Key:</label>
+			<input type="text" id="key" name="key" required><br> <br><br><br>
+		</div>
+
+		<div>
+			<label for="movie">Movie:</label>
+			<input type="text" id="movie" name="movie" required> <br><br><br>
+		</div>
+
+		<div>
+			<label for="review">Review:</label>
+			<input type="text" id="review" name="review" required> <br>
+		</div>
+
 
         <button type="submit">Submit</button>
     </form>
