@@ -1,18 +1,52 @@
 const express = require('express');
+require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
-const { DynamoDBClient, ListTablesCommand, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, PutItemCommand, ScanCommand } = require("@aws-sdk/client-dynamodb");
+const client = new DynamoDBClient(
+	{ region: "us-east-2",
+	credentials:{
+		accessKeyId: process.env.AWS_ID,
+		secretAccessKey: process.env.AWS_KEY,
+	}
+});
 
-let test = 0;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-
+const port = process.env.PORT || 3000;
 app.get('/',(req, res) => {res.sendFile(__dirname + '/index.html');});
+app.listen(port,() => {console.log('Our express server is up on port 3000');});
 
-app.post('/', async function(req, res) {
+
+
+app.get("/movies", async function(req, res, next) {
+    var params = {
+        TableName: "Movies"
+      };
+	const command = new ScanCommand(params);
+    const data = await client.send(command);
+	res.send(data.Items);
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// FORMS ///////////////////
+app.post('/form-submitted', async function(req, res) {
     let data = req.body;
     // console.log(data.name);
 	console.log(test);
@@ -23,14 +57,6 @@ app.post('/', async function(req, res) {
 	if (test==2)
     	res.send(`<h1>Error!</h1>`);
 });
-
-
-const port = process.env.PORT || 3000;
-app.listen(port,() => {console.log('Our express server is up on port 3000');});
-
-
-
-
 async function putNewItemDB(name, accessKey, secretKey, title, review){
 	const client = new DynamoDBClient(
 		{ region: "us-east-2",
@@ -58,4 +84,5 @@ async function putNewItemDB(name, accessKey, secretKey, title, review){
 	await client.send(command);
 
 }
+// FORMS ///////////////////
 
