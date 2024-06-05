@@ -25,7 +25,7 @@
 <body>
 <h1>Movie Review Form</h1>
 
-    <form action="/" method="post">
+    <form action="/form-submitted" method="post">
 		<div>
 			<label for="name">Name:</label>
 			<input type="text" id="name" name="name" required><br>
@@ -51,6 +51,10 @@
 			<input type="text" id="review" name="review" required> <br>
 		</div>
 
+		<div>
+			<label for="rating">Rating (out of 10):</label>
+			<input type="text" id="rating" name="rating" required> <br>
+		</div>
 
         <button type="submit">Submit</button>
     </form>

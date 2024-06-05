@@ -1,4 +1,6 @@
-
+.env
+test-page.html
+test-page.js
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
