@@ -1,7 +1,19 @@
+//Install express and create app
 const express = require('express');
-require('dotenv').config();
 const app = express();
+
+//CORS was necessary for fetch command from frontend JS
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+//dotenv is used for environment variables
+require('dotenv').config();
 const bodyParser = require('body-parser');
+
+//DynamoDB setup
 const { DynamoDBClient, PutItemCommand, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const client = new DynamoDBClient(
 	{ region: "us-east-2",
@@ -11,37 +23,28 @@ const client = new DynamoDBClient(
 	}
 });
 
-
+//App setup
 app.use(express.json());
+app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+//listen and get index.html for form creation
 const port = process.env.PORT || 3000;
 app.get('/',(req, res) => {res.sendFile(__dirname + '/index.html');});
 app.listen(port,() => {console.log('Our express server is up on port 3000');});
 
-
-
+//GET APIs /////////////////
 app.get("/movies", async function(req, res, next) {
     var params = {
-        TableName: "Movies"
+        TableName: "Brendan"
       };
 	const command = new ScanCommand(params);
     const data = await client.send(command);
 	res.send(data.Items);
    });
 
-
-
-
-
-
-
-
-
-
-
-
+//GET APIs /////////////////
 
 
 
@@ -49,15 +52,10 @@ app.get("/movies", async function(req, res, next) {
 app.post('/form-submitted', async function(req, res) {
     let data = req.body;
     // console.log(data.name);
-	console.log(test);
-    putNewItemDB(data.name, data.id, data.key, data.movie, data.review);
-	console.log(test);
-	if (test==1)
-    	res.send(`<h1>Form submitted successfully!</h1>`);
-	if (test==2)
-    	res.send(`<h1>Error!</h1>`);
+    putNewItemDB(data.name, data.id, data.key, data.movie, data.review, data.rating);
+	res.send('<h1>Form submitted</h1><style>body{background-color: rgb(10, 10, 10); color: white;}</style>');
 });
-async function putNewItemDB(name, accessKey, secretKey, title, review){
+async function putNewItemDB(name, accessKey, secretKey, title, review, rating){
 	const client = new DynamoDBClient(
 		{ region: "us-east-2",
 		credentials:{
@@ -66,17 +64,17 @@ async function putNewItemDB(name, accessKey, secretKey, title, review){
 		}
 	});
 	const input = {
-		TableName: "Movies",
+		TableName: name,
 		Item: {
-			"User": {
-				"S": name
-				},
 			"Title": {
 				"S": title
 				},
             "Review": {
                 "S": review
-                }
+                },
+			"Rating": {
+				"N": rating
+				}
 		}
 	};
 	const command = new PutItemCommand(input);

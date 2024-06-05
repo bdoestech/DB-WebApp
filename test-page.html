@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+	<meta charset="UTF-8" />
+	<title>Horror Form</title>
+</head>
+
+
+<body>
+<h1>Movie Review Form</h1>
+<div id="log">initial content</div>
+
+<script >
+    let tit;
+    let rev;
+    let rat;
+    fetch('http://localhost:3000/movies')
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // console.log('Data received:', data);
+        data.forEach(element => {
+            console.log(element.Title.S);
+            tit = `<br> ${element.Title.S}`;
+            rev = `<br> ${element.Review.S}`;
+            rat = `<br> ${element.Rating.N}`;
+            document.getElementById('log').innerHTML += tit;
+            document.getElementById('log').innerHTML += rev;
+            document.getElementById('log').innerHTML += rat;
+
+        });
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
+</script>
+</body>
+
+</html>
