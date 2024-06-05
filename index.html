@@ -9,50 +9,64 @@
 <style>
 	body{
 		background-color: rgb(10, 10, 10);
+		font-family: "Poppins", sans-serif;
 		color: whitesmoke;
 		margin: 1rem;
 		font-size: 1.5rem;
 	}
-	#review {
-		width: 35%;
-		height: 100px;
+	h1 {
+		font-weight: 100;
 	}
-	div {
+	input {width:15%;}
+	#review {width: 35%;}
+	div {margin: 1rem;}
+	button {
+		background-color: rgb(97, 97, 97);
+		padding: 0.5rem;
+		color: whitesmoke;
 		margin: 1rem;
+		font-size: 1.5rem;
+		border: solid black 2px;
+		border-radius: 0.75rem;
+		transition: 0.6s;
+	}
+	button:hover{
+		color:black;
+		background-color: whitesmoke;
 	}
 </style>
 
 <body>
 <h1>Movie Review Form</h1>
-
+<hr>
     <form action="/form-submitted" method="post">
 		<div>
-			<label for="name">Name:</label>
+			<label for="name">Name:</label><br>
 			<input type="text" id="name" name="name" required><br>
 		</div>
 
 		<div>
-			<label for="id">Access Key:</label>
+			<label for="id">Access Key:</label><br>
 			<input type="text" id="id" name="id" required><br>
 		</div>
 
 		<div>
-			<label for="key">Secret Key:</label>
-			<input type="text" id="key" name="key" required><br> <br><br><br>
+			<label for="key">Secret Key:</label><br>
+			<input type="text" id="key" name="key" required><br> <br> <hr>
 		</div>
 
 		<div>
-			<label for="movie">Movie:</label>
-			<input type="text" id="movie" name="movie" required> <br><br><br>
+			<label for="movie">Movie:</label><br>
+			<input type="text" id="movie" name="movie" required> <br>
 		</div>
 
 		<div>
-			<label for="review">Review:</label>
+			<label for="review">Review:</label><br>
 			<input type="text" id="review" name="review" required> <br>
 		</div>
 
 		<div>
-			<label for="rating">Rating (out of 10):</label>
+			<label for="rating">Rating (out of 10):</label><br>
 			<input type="text" id="rating" name="rating" required> <br>
 		</div>
 

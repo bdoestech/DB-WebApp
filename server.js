@@ -43,9 +43,9 @@ app.get("/movies-brendan", async function(req, res, next) {
     const data = await client.send(command);
 	res.send(data.Items);
    });
-   app.get("/movies-dar", async function(req, res, next) {
+   app.get("/movies-darayus", async function(req, res, next) {
     var params = {
-        TableName: "Dar"
+        TableName: "Darayus"
       };
 	const command = new ScanCommand(params);
     const data = await client.send(command);
