@@ -35,7 +35,7 @@ app.get('/',(req, res) => {res.sendFile(__dirname + '/index.html');});
 app.listen(port,() => {console.log('Our express server is up on port 3000');});
 
 //GET APIs /////////////////
-app.get("/movies", async function(req, res, next) {
+app.get("/movies-brendan", async function(req, res, next) {
     var params = {
         TableName: "Brendan"
       };
@@ -43,7 +43,14 @@ app.get("/movies", async function(req, res, next) {
     const data = await client.send(command);
 	res.send(data.Items);
    });
-
+   app.get("/movies-dar", async function(req, res, next) {
+    var params = {
+        TableName: "Dar"
+      };
+	const command = new ScanCommand(params);
+    const data = await client.send(command);
+	res.send(data.Items);
+   });
 //GET APIs /////////////////
 
 

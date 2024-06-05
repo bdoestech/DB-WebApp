@@ -6,40 +6,23 @@
 	<title>Horror Form</title>
 </head>
 
+<style>
+	body{
+		background-color: rgb(10, 10, 10);
+		color: whitesmoke;
+		margin: 1rem;
+		font-size: 1.5rem;
+	}
+	div {
+		margin: 1rem;
+	}
+</style>
 
 <body>
-<h1>Movie Review Form</h1>
-<div id="log">initial content</div>
+    <h1>Movie Reviews</h1>
+    <div id="begin"></div>
 
-<script >
-    let tit;
-    let rev;
-    let rat;
-    fetch('http://localhost:3000/movies')
-    .then(response => {
-        if (!response.ok) {
-        throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // console.log('Data received:', data);
-        data.forEach(element => {
-            console.log(element.Title.S);
-            tit = `<br> ${element.Title.S}`;
-            rev = `<br> ${element.Review.S}`;
-            rat = `<br> ${element.Rating.N}`;
-            document.getElementById('log').innerHTML += tit;
-            document.getElementById('log').innerHTML += rev;
-            document.getElementById('log').innerHTML += rat;
-
-        });
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
-
-</script>
+<script src = './test-page.js'></script>
 </body>
 
 </html>
