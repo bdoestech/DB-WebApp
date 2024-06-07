@@ -26,7 +26,11 @@ This API returns data in JSON format.
 
 #### Run the following commands to install necessary packages:
 npm install express --save
+
 npm install dotenv --save
+
 npm install @aws-sdk/client-dynamodb --save
+
 npm install body-parser --save
+
 npm install cors --save
