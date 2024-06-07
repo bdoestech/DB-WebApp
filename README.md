@@ -5,6 +5,8 @@ This is a basic web application that is based on NodeJS and Express. This app us
 
 This app also has APIs to retrieve data from the DynamoDB database.
 
+App deployed using AWS Elastic Beanstalk.
+
 Web App hosted here: http://horror-forms.bdoestech.com/
 ## API Reference
 
