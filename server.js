@@ -59,10 +59,10 @@ app.get("/movies-brendan", async function(req, res, next) {
 app.post('/form-submitted', async function(req, res) {
     let data = req.body;
     // console.log(data.name);
-    putNewItemDB(data.name, data.id, data.key, data.movie, data.review, data.rating);
+    putNewItemDB(data.name, data.id, data.key, data.movie, data.year, data.review, data.rating, data.date);
 	res.send('<h1>Form submitted</h1><style>body{background-color: rgb(10, 10, 10); color: white;}</style>');
 });
-async function putNewItemDB(name, accessKey, secretKey, title, review, rating){
+async function putNewItemDB(name, accessKey, secretKey, title, year, review, rating, date){
 	const client = new DynamoDBClient(
 		{ region: "us-east-2",
 		credentials:{
@@ -76,18 +76,23 @@ async function putNewItemDB(name, accessKey, secretKey, title, review, rating){
 			"Title": {
 				"S": title
 				},
+			"Year": {
+				"S": year
+				},
             "Review": {
                 "S": review
                 },
 			"Rating": {
 				"N": rating
+				},
+			"Date": {
+				"N": date
 				}
 		}
 	};
 	const command = new PutItemCommand(input);
 	// client.send(command);
 	await client.send(command);
-
 }
 // FORMS ///////////////////
 
