@@ -1,5 +1,5 @@
 
-# EffedUpMovieClub-WebApp
+# DynamoDB-WebApp
 
 This is a basic web application that is based on NodeJS and Express. This app uses a html form, which takes some info from the user. This info is stored to a DynomoDB database.
 
@@ -12,14 +12,14 @@ Web App hosted here: http://horror-forms.bdoestech.com/
 
 #### Get 'brendan' dataset
 
-```http
+```
   GET http://horror-forms.bdoestech.com/movies-brendan
 ```
 This API returns data in JSON format.
 
 #### Get 'darayus' dataset
 
-```http
+```
   GET http://horror-forms.bdoestech.com/movies-darayus
 ```
 This API returns data in JSON format.
