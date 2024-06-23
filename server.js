@@ -1,6 +1,7 @@
 //Install express and create app
 const express = require('express');
 const app = express();
+const interval = 60000; // Interval in milliseconds (30 seconds)
 
 //CORS was necessary for fetch command from frontend JS
 const cors=require("cors");
@@ -25,6 +26,7 @@ const client = new MongoClient(uri, {
 	}
   });
 
+setInterval(reloadWebsite, interval);
 
 //App setup
 app.use(express.json());
@@ -45,7 +47,7 @@ app.get("/movies-brendan", async function(req, res) {
 	await client.connect();
 	const database = client.db("Cluster0");
 	const data = await database.collection("Brendan").find().toArray(); 
-	// console.log(data);
+	console.log("Data sent!");
 	res.json(data);
 });
 
@@ -54,13 +56,25 @@ app.get("/movies-darayus", async function(req, res) {
 	await client.connect();
 	const database = client.db("Cluster0");
 	const data = await database.collection("Darayus").find().toArray(); 
-	// console.log(data);
+	console.log("Data sent!");
 	res.json(data);
 });
 //GET APIs /////////////////
 function delay(time) {
 	return new Promise(resolve => setTimeout(resolve, time));
-  }
+}
+
+
+function reloadWebsite() {
+    fetch('https://effedupforms.bdoestech.com/movies-brendan')
+    .then(response => {
+      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+    })
+    .catch(error => {
+      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
+    });
+}
+
   
 
 
