@@ -41,22 +41,27 @@ app.listen(port,() => {console.log('Our express server is up on port 3000');});
 
 //GET APIs /////////////////
 app.get("/movies-brendan", async function(req, res) {
+	delay(3000).then(() => console.log('ran after 3 seconds passed'));
 	await client.connect();
 	const database = client.db("Cluster0");
 	const data = await database.collection("Brendan").find().toArray(); 
-	console.log(data);
+	// console.log(data);
 	res.json(data);
 });
 
 app.get("/movies-darayus", async function(req, res) {
+	delay(3000).then(() => console.log('ran after 3 seconds passed'));
 	await client.connect();
 	const database = client.db("Cluster0");
 	const data = await database.collection("Darayus").find().toArray(); 
-	console.log(data);
+	// console.log(data);
 	res.json(data);
 });
 //GET APIs /////////////////
-
+function delay(time) {
+	return new Promise(resolve => setTimeout(resolve, time));
+  }
+  
 
 
 // FORMS ///////////////////
