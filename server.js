@@ -1,7 +1,7 @@
 //Install express and create app
 const express = require('express');
 const app = express();
-const interval = 60000; // Interval in milliseconds (30 seconds)
+const interval = 600000; // Interval in milliseconds (30 seconds)
 
 //CORS was necessary for fetch command from frontend JS
 const cors=require("cors");
@@ -43,39 +43,54 @@ app.listen(port,() => {console.log('Our express server is up on port 3000');});
 
 //GET APIs /////////////////
 app.get("/movies-brendan", async function(req, res) {
-	// delay(3000).then(() => console.log('ran after 3 seconds passed'));
-	await client.connect();
-	const database = client.db("Cluster0");
-	const data = await database.collection("Brendan").find().toArray(); 
-	console.log("Data sent!");
-	res.json(data);
+	try {
+		await client.connect();
+		const database = client.db("Cluster0");
+		const data = await database.collection("Brendan").find().toArray(); 
+		console.log("\nData sent from '/movies-brendan' API\n");
+		res.json(data);
+	}
+	catch (err) {
+		console.log("\nError fetching data in '/movies-brendan' API");
+		console.log(`${err}\n`);
+		res.send(`${err}`);
+	}
+
 });
 
 app.get("/movies-darayus", async function(req, res) {
-	// delay(3000).then(() => console.log('ran after 3 seconds passed'));
-	await client.connect();
-	const database = client.db("Cluster0");
-	const data = await database.collection("Darayus").find().toArray(); 
-	console.log("Data sent!");
-	res.json(data);
+	try {
+		await client.connect();
+		const database = client.db("Cluster0");
+		const data = await database.collection("Darayus").find().toArray(); 
+		console.log("\nData sent from '/movies-darayus' API\n");
+		res.json(data);
+	}
+	catch (err) {
+		console.log("\nError fetching data in '/movies-darayus' API");
+		console.log(`${err}\n`);
+		res.send(`${err}`);
+	}
 });
-//GET APIs /////////////////
-function delay(time) {
-	return new Promise(resolve => setTimeout(resolve, time));
-}
+
+app.get("/ping", async function(req, res) {
+	// delay(3000).then(() => console.log('ran after 3 seconds passed'));
+	res.send("Self Ping Successful");
+});
 
 
+// SELF PING /////////////////
 function reloadWebsite() {
-    fetch('https://effedupforms.bdoestech.com/movies-brendan')
+	// fetch('http://localhost:3000/ping')
+
+    fetch('https://effedupforms.bdoestech.com/ping')
     .then(response => {
-      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+      console.log(`\nReloaded at ${new Date().toISOString()}: Status Code ${response.status}\n`);
     })
     .catch(error => {
       console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
     });
 }
-
-  
 
 
 // FORMS ///////////////////
@@ -106,5 +121,4 @@ async function putNewItemDB(name, title, year, review, rating, date){
 		await client.close();
 	}
 }
-// FORMS ///////////////////
 
