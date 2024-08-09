@@ -1,7 +1,7 @@
 //Install express and create app
 const express = require('express');
 const app = express();
-const interval = 600000; // Interval in milliseconds (30 seconds)
+const interval = 800000; // Interval in milliseconds (30 seconds)
 
 //CORS was necessary for fetch command from frontend JS
 const cors=require("cors");
@@ -37,7 +37,7 @@ app.use(express.static('public'));
 //listen and get index.html for form creation
 const port = process.env.PORT || 3000;
 app.get('/',(req, res) => {res.sendFile(__dirname + '/index.html');});
-app.listen(port,() => {console.log('Our express server is up on port 3000');});
+app.listen(port,() => {console.log('Our express server is up on port 3000\n');});
 
 
 
@@ -47,11 +47,11 @@ app.get("/movies-brendan", async function(req, res) {
 		await client.connect();
 		const database = client.db("Cluster0");
 		const data = await database.collection("Brendan").find().toArray(); 
-		console.log("\nData sent from '/movies-brendan' API\n");
+		console.log("Data sent from '/movies-brendan' API\n");
 		res.json(data);
 	}
 	catch (err) {
-		console.log("\nError fetching data in '/movies-brendan' API");
+		console.log("Error fetching data in '/movies-brendan' API");
 		console.log(`${err}\n`);
 		res.send(`${err}`);
 	}
@@ -63,11 +63,11 @@ app.get("/movies-darayus", async function(req, res) {
 		await client.connect();
 		const database = client.db("Cluster0");
 		const data = await database.collection("Darayus").find().toArray(); 
-		console.log("\nData sent from '/movies-darayus' API\n");
+		console.log("Data sent from '/movies-darayus' API\n");
 		res.json(data);
 	}
 	catch (err) {
-		console.log("\nError fetching data in '/movies-darayus' API");
+		console.log("Error fetching data in '/movies-darayus' API");
 		console.log(`${err}\n`);
 		res.send(`${err}`);
 	}
@@ -85,7 +85,7 @@ function reloadWebsite() {
 
     fetch('https://effedupforms.bdoestech.com/ping')
     .then(response => {
-      console.log(`\nReloaded at ${new Date().toISOString()}: Status Code ${response.status}\n`);
+      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}\n`);
     })
     .catch(error => {
       console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
@@ -96,9 +96,17 @@ function reloadWebsite() {
 // FORMS ///////////////////
 app.post('/form-submitted', async function(req, res) {
     let data = req.body;
+	if (data.pass == "1234darhasafatty"){
+		console.log("Correct Password")
+		putNewItemDB(data.name, data.movie, data.year, data.review, data.rating, data.date);
+		res.send('<h1>Form submitted</h1><style>body{background-color: rgb(10, 10, 10); color: white;}</style>');
+	}
+	else {
+		console.log("Wrong Password")
+		res.send('<h1>EHHHHHH wrong password buddy, go back and try again.</h1><style>body{background-color: rgb(10, 10, 10); color: white;}</style>');
+	}
     // console.log(data.name);
-    putNewItemDB(data.name, data.movie, data.year, data.review, data.rating, data.date);
-	res.send('<h1>Form submitted</h1><style>body{background-color: rgb(10, 10, 10); color: white;}</style>');
+
 });
 async function putNewItemDB(name, title, year, review, rating, date){
 	try {
